@@ -1,0 +1,42 @@
+{% extends "home/base_menu.html" %}
+
+{% load humanize %} <!-- https://docs.djangoproject.com/en/3.0/ref/contrib/humanize -->
+{% block content %}
+<span style="float: right;">
+({{ ideas.updated_at|naturaltime }})
+{% if ideas.owner == user %}
+<a href="{% url 'web_ideas:ideas_update' ideas.id %}"><i class="fa fa-pencil"></i></a>
+<a href="{% url 'web_ideas:ideas_delete' ideas.id %}"><i class="fa fa-trash"></i></a>
+{% endif %}
+</span>
+<h1>{{ ideas.name }}</h1>
+<p>
+{{ ideas.priotity }}
+</br>
+</p>
+<p>
+Description: {{ideas.description}}
+</p>
+<p>
+Difficulty: {{ideas.difficulty}}
+</p>
+<p>
+Status: {{ideas.status}}
+</p>
+<p>
+Owner: {{ideas.owner}}
+</p>
+<p>
+Created: {{ideas.created_at}} UTC
+</p>
+<p>
+Updated: {{ideas.updated_at}} UTC
+</p>
+<p>
+Linked In Post: <a href="{{ideas.linkedin_url}}">Linked In Job</a>
+</p>
+
+<p>
+<a href="{% url 'web_ideas:all' %}">All Ideas</a>
+</p>
+{% endblock %}

@@ -1,0 +1,58 @@
+{% extends "home/base_menu.html" %}
+{% block content %}
+<h1>Bart's Web Ideas</h1>
+<p>
+{% if ideas_list %}
+<table>
+    <tr>
+        <th>Name    &nbsp;</th>
+        <th>Priority    &nbsp;</th>
+        <th>Difficulty    &nbsp;</th>
+        <th>Status    &nbsp;</th>
+        <th>Owner    &nbsp;</th>
+        <th>Update  &nbsp;</th>
+        <th>Delete  &nbsp;</th>
+    </tr>
+  {% for idea in ideas_list %}
+
+    <tr>
+        <td></th><a href="{% url 'web_ideas:ideas_detail'  idea.id %}">{{ idea.name }} &nbsp;</a></td>
+
+        <td>{{idea.priority}} &nbsp;</td>
+        <td>{{idea.difficulty}} &nbsp;</td>
+        {% if idea.status|slugify == 'not-started' %}
+        <td style="background-color:#ff6699;">
+        {% elif idea.status|slugify  == 'completed' %}
+        <td style="background-color:#66ff99;">
+        {% elif idea.status|slugify  == 'in-progress' %}
+        <td style="background-color:#ffff66;">
+        {% else %}
+        <td>
+        {% endif %}
+            {{idea.status}} &nbsp;</td>
+
+        <td>{{idea.owner}} &nbsp;</td>
+        {% if idea.owner == user or user.is_superuser %}
+        <td>&nbsp;  <a href="{% url 'web_ideas:ideas_update' idea.id %}">Edit</a> </td>
+        <td>&nbsp;  <a href="{% url 'web_ideas:ideas_delete' idea.id %}">Delete</a></td>
+        {% endif %}
+    </tr>
+  {% endfor %}
+</table>
+{% else %}
+  <p>There are no ideas in the database.</p>
+{% endif %}
+</p>
+<p>
+<a href="{% url 'web_ideas:ideas_create' %}">Add Idea</a> |
+{% if user.is_authenticated %}
+<a href="{% url 'logout' %}?next={% url 'web_ideas:all' %}">Logout</a>
+{% else %}
+<a href="{% url 'login' %}?next={% url 'web_ideas:all' %}">Login</a>
+{% endif %}
+</p>
+
+
+{% endblock %}
+
+

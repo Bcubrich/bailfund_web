@@ -28,17 +28,18 @@ urlpatterns = [
     url(r'^oauth/', include('social_django.urls', namespace='social')),  # Keep
 
     # Sample applications
-    path('hello/', include('hello.urls')),
+    #path('hello/', include('hello.urls')),
     path('signup/', include('signup.urls')),
     path('home/', include('home.urls')),
-    path('authz/', include('authz.urls')),
+    #path('authz/', include('authz.urls')),
     #path('myarts/', include('myarts.urls')),
-    path('polls/', include('polls.urls')),
-    path('autos/', include('autos.urls')),
-    path('cats/', include('cats.urls')),
-    path('ads/', include('ads.urls')),
+    #path('polls/', include('polls.urls')),
+    #path('autos/', include('autos.urls')),
+    #path('cats/', include('cats.urls')),
+    #path('ads/', include('ads.urls')),
     path('menu/', include('menu.urls')),
     path('web_ideas/', include('web_ideas.urls')),
+    path('bailfund/', include('bailfund.urls')),
     #path('unesco/', include('unesco.urls')),
 ]
 

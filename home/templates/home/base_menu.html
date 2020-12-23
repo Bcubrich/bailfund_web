@@ -17,27 +17,7 @@
       <li {% if request.get_full_path == "/" %}class="active"{% endif %}>
           <a href="/">Home</a></li>
 
-      {% url 'polls:index' as abc1 %}
-      <li {% if request.get_full_path == abc1 %}class="active"{% endif %}>
-          <a href="{% url 'polls:index' %}">Polls</a></li>
 
-      {% url 'autos:all' as abc2 %}
-      <li {% if request.get_full_path == abc2 %}class="active"{% endif %}>
-          <a href="{% url 'autos:all' %}">Autos</a></li>
-
-      {% url 'web_ideas:all' as abc3 %}
-      <li {% if request.get_full_path == abc3 %}class="active"{% endif %}>
-          <a href="{% url 'web_ideas:all' %}">Ideas</a></li>
-
-
-      <li class="dropdown">
-      <a href="#" data-toggle="dropdown" class="dropdown-toggle">Drop Down
-          <b class="caret"></b></a>
-        <ul class="dropdown-menu">
-            <li><a href="{% url 'cats:all' %}">Cats</a></li>
-            <li><a href="{% url 'ads:all' %}">Classified Ads</a></li>
-        </ul>
-       </li>
 
     </ul>
     <ul class="nav navbar-nav navbar-right">

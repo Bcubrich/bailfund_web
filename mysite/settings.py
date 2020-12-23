@@ -57,15 +57,16 @@ INSTALLED_APPS = [
     'home.apps.HomeConfig',
 
     # Sample Applications - don't copy
-    'hello.apps.HelloConfig',
+    #'hello.apps.HelloConfig',
     'menu.apps.MenuConfig',
-    'polls',
-    'autos.apps.AutosConfig',
-    'cats.apps.CatsConfig',
-    'authz.apps.AuthzConfig',
-    'ads.apps.AdsConfig',
+    #'polls',
+    #'autos.apps.AutosConfig',
+    #'cats.apps.CatsConfig',
+    #'authz.apps.AuthzConfig',
+    #'ads.apps.AdsConfig',
     'web_ideas',
     'signup',
+    'bailfund',
     #'unesco.apps.UnescoConfig',  # Add
 ]
 
@@ -114,9 +115,17 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    },
+
+    'roster_db': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'roster_db.sqlite3'),
     }
+
 }
 
+DATABASE_ROUTERS = ['django.contrib.routers.routers.BailRouter']
+DATABASE_APPS_MAPPING = {'bailfund': 'roster_db'}
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators

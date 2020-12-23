@@ -1,0 +1,194 @@
+{% extends "home/base_menu.html" %}
+{% block content %}
+
+
+<style>
+
+
+
+table {
+    color: #333;
+    font-family: Helvetica, Arial, sans-serif;
+    width: 1000px;
+    border-collapse:
+    collapse; border-spacing: 0;
+}
+
+td, th {
+    border: 1px solid transparent; /* No more visible border */
+    height: 30px;
+    transition: all 0.3s;  /* Simple transition for hover effect */
+}
+
+th {
+    background: #DFDFDF;  /* Darken header a bit */
+    font-weight: bold;
+}
+
+td {
+    background: #FAFAFA;
+    text-align: center;
+}
+
+/* Cells in even rows (2,4,6...) are one color */
+tr:nth-child(even) td { background: #F1F1F1; }
+
+/* Cells in odd rows (1,3,5...) are another (excludes header cells)  */
+tr:nth-child(odd) td { background: #FEFEFE; }
+
+tr td:hover { background: #666; color: #FFF; }
+/* Hover cell effect! */
+
+.equalDivide tr td { width:25%; }
+
+</style>
+
+{% if user.is_authenticated %}
+<p>
+
+<a href="{% url 'logout' %}?next={% url 'web_ideas:all' %}">Logout</a>
+<p/>
+
+<h1>Bail Bond Data</h1>
+<h3>Personal Information</h3>
+
+    <table id='personal_data_table' class="sortable">
+
+        <thead id='personal_header'>
+            <tr>
+                <th>Name    &nbsp;</th>
+                <th>Age &nbsp;</th>
+                <th>Sex &nbsp;</th>
+                <th>Height    &nbsp;</th>
+                <th>Weight   &nbsp;</th>
+                <th>Race   &nbsp;</th>
+                <th>SO    &nbsp;</th>
+                <th>Date Added    &nbsp;</th>
+            </tr>
+        </thead>
+
+
+
+        <tbody id='personal_data'>
+
+            <tr>
+
+                <td>{{personal.name}} &nbsp;</td>
+                <td>{{personal.age}} &nbsp;</td>
+                <td>{{personal.sex}} &nbsp;</td>
+                <td>{{personal.height}} &nbsp;</td>
+                <td>{{personal.weight}} &nbsp;</td>
+                <td>{{personal.race}} &nbsp;</td>
+                <td>{{personal.so}} &nbsp;</td>
+                <td>{{personal.date_added}} &nbsp;</td>
+            </tr>
+
+        </tbody>
+
+    </table>
+
+
+
+<h3>Personal Information From Roster Scrape</h3>
+
+<table name='roster_data' class="sortable">
+
+    <thead id='data_header'>
+        <tr>
+            <th>First Name    &nbsp;</th>
+            <th>Last Name    &nbsp;</th>
+            <th>Booking Date &nbsp;</th>
+            <th>SO # (Permanant)   &nbsp;</th>
+            <th>Age    &nbsp;</th>
+            <th>Sex    &nbsp;</th>
+            <th>Race    &nbsp;</th>
+            <th>Ethnicity    &nbsp;</th>
+            <th>Mean Bond &nbsp;</th>
+            <th>Median Bond    &nbsp;</th>
+            <th>Min Bond    &nbsp;</th>
+            <th>Max Bond    &nbsp;</th>
+        <th>Charges    &nbsp;</th>
+        </tr>
+    </thead>
+
+
+
+    <tbody id='roster_data'>
+
+        <tr>
+
+            <td>{{roster.firstname}} &nbsp;</td>
+            <td>{{roster.lastname}} &nbsp;</td>
+            <td>{{roster.booking_dt}} &nbsp;</td>
+            <td>{{roster.so}} &nbsp;</td>
+             <td>{{roster.age}} &nbsp;</td>
+            <td>{{roster.sex}} &nbsp;</td>
+            <td>{{roster.race}} &nbsp;</td>
+            <td>{{roster.ethnicity}} &nbsp;</td>
+            <td>{{roster.bondmean}} &nbsp;</td>
+            <td>{{roster.bondmedian}} &nbsp;</td>
+            <td>{{roster.bondmode}} &nbsp;</td>
+            <td>{{roster.bondmax}} &nbsp;</td>
+            <td>{{roster.charges}} &nbsp;</td>
+
+
+        </tr>
+
+    </tbody>
+
+</table>
+
+
+<h3>Bond Information</h3>
+<p>
+{% if bond_list %}
+<table id='bond_table' class="sortable">
+
+    <thead id='data_header'>
+        <tr>
+            <th>Case    &nbsp;</th>
+            <th>Amount &nbsp;</th>
+            <th>Status  &nbsp;</th>
+            <th>Posted By    &nbsp;</th>
+            <th>Post Date    &nbsp;</th>
+            <th>SO    &nbsp;</th>
+            <th>Date Added    &nbsp;</th>
+        </tr>
+    </thead>
+
+
+
+    <tbody id='bonddata'>
+    {% for bond in bond_list %}
+        <tr>
+
+            <td>{{bond.case}} &nbsp;</td>
+            <td>{{bond.amount}} &nbsp;</td>
+            <td>{{bond.status}} &nbsp;</td>
+            <td>{{bond.postedby}} &nbsp;</td>
+            <td>{{bond.postdate}} &nbsp;</td>
+            <td>{{bond.so}} &nbsp;</td>
+            <td>{{bond.date_added}} &nbsp;</td>
+
+
+        </tr>
+    {% endfor %}
+    </tbody>
+
+</table>
+{% else %}
+  <p>There are no entries in the database.</p>
+{% endif %}
+</p>
+
+
+<script src="//www.kryogenix.org/code/browser/sorttable/sorttable.js"></script>
+{% else %}
+<p></p>
+
+<a href="{% url 'login' %}?next={% url 'web_ideas:all' %}">Login</a>
+
+</p>
+{% endif %}
+{% endblock %}
+
